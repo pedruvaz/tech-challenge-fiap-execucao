@@ -25,10 +25,7 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(
     app,
-    new DocumentBuilder()
-      .setTitle('execucao')
-      .setVersion('0.0.1')
-      .build(),
+    new DocumentBuilder().setTitle('execucao').setVersion('0.0.1').build(),
   );
   SwaggerModule.setup('docs', app, document, { jsonDocumentUrl: 'docs-json' });
 
