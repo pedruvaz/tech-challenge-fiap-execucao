@@ -1,4 +1,4 @@
-# service-template
+# execucao
 
 Template de microsserviço do Tech Challenge FIAP (Fase 4). NestJS 11 + TypeScript, mensageria por SQS, pronto para participar da saga orquestrada (o orquestrador fica no OS Service).
 
@@ -10,7 +10,7 @@ Uma fila de comandos por serviço, uma fila de respostas para o orquestrador e u
 
 ```mermaid
 flowchart LR
-  ORQ[Orquestrador<br/>OS Service] -- comando --> IN[(fila de entrada<br/>service-template.commands)]
+  ORQ[Orquestrador<br/>OS Service] -- comando --> IN[(fila de entrada<br/>execucao.commands)]
   IN --> C[SqsConsumer]
   C --> D[MessageDispatcher<br/>SagaContext + idempotência]
   D --> H[MessageHandler]
@@ -50,7 +50,7 @@ Crie com `createEnvelope(type, payload, { sagaId, correlationId, version? })`.
 ## Criando um serviço novo a partir do template
 
 1. No GitHub: **Use this template** e crie o repositório do serviço; clone.
-2. `scripts/rename-service.sh <nome-do-servico>` troca `service-template` pelo nome novo em todo o repo (código, k8s, README, workflow).
+2. `scripts/rename-service.sh <nome-do-servico>` troca `execucao` pelo nome novo em todo o repo (código, k8s, README, workflow).
 3. Apague `src/hello` e a linha `HelloModule` do `src/app.module.ts`. É só um exemplo.
 4. Implemente `OutboxStore` e `ProcessedMessageStore` para o banco do serviço e troque os providers no `MessagingModule.forRoot()` (`{ provide: OutboxStore, useClass: PostgresOutboxStore }`). Grave `add` do outbox e `markProcessed` na mesma transação dos efeitos do handler sempre que o banco permitir.
 5. Escreva os handlers (`implements MessageHandler`) e registre-os no módulo do serviço, explicitamente:
@@ -71,10 +71,10 @@ Ver `.env.example`.
 | --- | --- | --- |
 | `PORT` | `3000` | porta HTTP |
 | `LOG_LEVEL` | `info` | nível do pino |
-| `OTEL_SERVICE_NAME` | `service-template` | nome no log e nos traces |
+| `OTEL_SERVICE_NAME` | `execucao` | nome no log e nos traces |
 | `OTEL_EXPORTER_OTLP_ENDPOINT` / `OTEL_TRACES_EXPORTER=console` | desligado | exporter de traces |
 | `MESSAGING_DRIVER` | `memory` | `memory` ou `sqs` |
-| `MESSAGING_INBOUND_QUEUE` | `service-template.commands` | nome lógico da fila de entrada |
+| `MESSAGING_INBOUND_QUEUE` | `execucao.commands` | nome lógico da fila de entrada |
 | `MESSAGING_INBOUND_QUEUE_URL` | - | URL da fila de entrada (sqs) |
 | `MESSAGING_QUEUE_<NOME>` | - | URL de cada fila de destino (sqs) |
 | `OUTBOX_POLL_INTERVAL_MS` | `1000` | intervalo do relay do outbox |

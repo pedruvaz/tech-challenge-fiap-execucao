@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Troca `service-template` pelo nome do novo serviço em todo o repo
+# Troca `execucao` pelo nome do novo serviço em todo o repo
 # (exceto .git, node_modules, dist e coverage). Funciona em macOS e Linux.
 # Uso: scripts/rename-service.sh billing-service
 set -euo pipefail
@@ -13,14 +13,14 @@ fi
 cd "$(dirname "$0")/.."
 
 grep -rIl --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=dist \
-  --exclude-dir=coverage --exclude=package-lock.json 'service-template' . \
+  --exclude-dir=coverage --exclude=package-lock.json 'execucao' . \
   | while IFS= read -r arquivo; do
-      NOVO="$NOVO" perl -pi -e 's/service-template/$ENV{NOVO}/g' "$arquivo"
+      NOVO="$NOVO" perl -pi -e 's/execucao/$ENV{NOVO}/g' "$arquivo"
     done
 
 # O package-lock tem o nome só nas duas primeiras entradas; troca só ali.
 if [[ -f package-lock.json ]]; then
-  NOVO="$NOVO" perl -pi -e 's/"name": "service-template"/"name": "$ENV{NOVO}"/ if $. <= 12' package-lock.json
+  NOVO="$NOVO" perl -pi -e 's/"name": "execucao"/"name": "$ENV{NOVO}"/ if $. <= 12' package-lock.json
 fi
 
 echo "Renomeado para '$NOVO'."

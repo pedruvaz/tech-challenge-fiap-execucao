@@ -34,7 +34,7 @@ const enabled =
 
 export const otelSdk: NodeSDK | null = enabled
   ? new NodeSDK({
-      serviceName: process.env.OTEL_SERVICE_NAME ?? 'service-template',
+      serviceName: process.env.OTEL_SERVICE_NAME ?? 'execucao',
       traceExporter: otlpEndpoint
         ? new OTLPTraceExporter()
         : new tracing.ConsoleSpanExporter(),

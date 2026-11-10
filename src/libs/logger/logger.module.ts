@@ -33,7 +33,7 @@ export function logMixin(): Record<string, unknown> {
           },
         }),
         base: {
-          service: process.env.OTEL_SERVICE_NAME ?? 'service-template',
+          service: process.env.OTEL_SERVICE_NAME ?? 'execucao',
           env: process.env.APP_ENV ?? 'development',
           ...(process.env.OTEL_SERVICE_VERSION && {
             version: process.env.OTEL_SERVICE_VERSION,

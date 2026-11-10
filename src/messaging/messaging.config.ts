@@ -10,7 +10,7 @@ export class MessagingConfig {
   constructor(private readonly env: NodeJS.ProcessEnv = process.env) {
     this.driver = env.MESSAGING_DRIVER === 'sqs' ? 'sqs' : 'memory';
     this.inboundQueue =
-      env.MESSAGING_INBOUND_QUEUE ?? 'service-template.commands';
+      env.MESSAGING_INBOUND_QUEUE ?? 'execucao.commands';
     this.inboundQueueUrl = env.MESSAGING_INBOUND_QUEUE_URL || undefined;
   }
 

@@ -66,4 +66,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: docker build -t service-template:ci .
+      - run: docker build -t execucao:ci .

@@ -4,7 +4,7 @@ describe('MessagingConfig', () => {
   it('usa defaults: driver memory e fila de entrada padrão', () => {
     const c = new MessagingConfig({});
     expect(c.driver).toBe('memory');
-    expect(c.inboundQueue).toBe('service-template.commands');
+    expect(c.inboundQueue).toBe('execucao.commands');
     expect(c.resolveDestination('billing.commands')).toBe('billing.commands');
   });
 
